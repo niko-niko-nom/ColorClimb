@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://ce2nwqbmso5vg"]
+[gd_scene load_steps=2 format=3 uid="uid://ce2nwqbmso5vg"]
+
+[ext_resource type="Script" uid="uid://dttjbshg8h27w" path="res://ColorClimb/scripts/game.gd" id="1_ukw1k"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -7,3 +9,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ukw1k")
+
+[node name="TaskButtonContainer" type="VBoxContainer" parent="."]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -110.0
+offset_right = 190.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
