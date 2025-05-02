@@ -48,8 +48,12 @@ func _on_button_pressed() -> void:
 			activate()
 
 func activate():
+	if progress >= 1.0:
+		_reset_task()
+		
 	active_task = self
 	is_active = true
+
 
 func pause():
 	is_active = false
@@ -67,3 +71,12 @@ func _on_task_complete():
 	is_active = false
 	progress_bar.value = 100
 	print("Finished task:", task_data.name)
+	
+	if repeat_button and repeat_button.button_pressed:
+		print("repeating task: ", task_data.name)
+		_reset_task()
+		activate()
+
+func _reset_task():
+	progress = 0
+	progress_bar.value = 0
