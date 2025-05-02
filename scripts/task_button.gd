@@ -2,8 +2,9 @@ extends Control
 
 class_name TaskButton
 
-var button: Button
-var progress_bar: ProgressBar
+@onready var repeat_button = $HBoxContainer/RepeatCheck
+@onready var button = $HBoxContainer/Button
+@onready var progress_bar = $HBoxContainer/Button/ProgressBar
 
 static var active_task : TaskButton = null
 
@@ -18,8 +19,6 @@ func _ready() -> void:
 	call_deferred("_deferred_setup")
 
 func _deferred_setup():
-	button = $Button
-	progress_bar = $Button/ProgressBar
 	button.pressed.connect(_on_button_pressed.bind())
 	
 	if pending_task_data != null:
@@ -42,6 +41,11 @@ func _on_button_pressed() -> void:
 		if active_task:
 			active_task.pause()
 		activate()
+	else:
+		if is_active:
+			pause()
+		else:
+			activate()
 
 func activate():
 	active_task = self

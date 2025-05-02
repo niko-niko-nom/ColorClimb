@@ -20,18 +20,24 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_1cbg0")
 
-[node name="Button" type="Button" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RepeatCheck" type="CheckBox" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer"]
 z_index = 1
 custom_minimum_size = Vector2(160, 20)
-layout_mode = 1
-offset_right = 178.0
-offset_bottom = 26.0
+layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = SubResource("Theme_b7c78")
 action_mode = 0
 text = "Placeholder"
 
-[node name="ProgressBar" type="ProgressBar" parent="Button"]
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/Button"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -42,4 +48,4 @@ grow_vertical = 2
 mouse_filter = 2
 show_percentage = false
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button" to="." method="_on_button_pressed"]

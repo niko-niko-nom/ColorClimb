@@ -2,8 +2,8 @@ extends Control
 
 var tasks = [
 	{"name": "Sketch", "duration": 2.0, "creativity_cost": 10, "energy_cost": 5, "reward_skill": 3},
-	{"name": "Painting", "duration": 4.0, "creativity_cost": 20, "energy_cost": 8, "reward_skill": 6},
-	{"name": "AI Prompting", "duration": 1.0, "creativity_cost": 0, "energy_cost": 2, "reward_skill": 1}
+	{"name": "Paint", "duration": 4.0, "creativity_cost": 20, "energy_cost": 8, "reward_skill": 6},
+	{"name": "Prompt AI", "duration": 0.5, "creativity_cost": 1, "energy_cost": 2, "reward_skill": 1}
 ]
 
 @onready var task_button_container = $TaskButtonContainer
