@@ -1,4 +1,6 @@
-extends Node
+extends Resource
+
+var population = Population
 
 var max_energy = 100
 var energy = 0
@@ -13,6 +15,8 @@ var min_happiness = 0
 var max_creativity = 100
 var creativitiy = 0
 var min_creativitiy = 0
+
+var current_year = 2012
 
 var max_life_left = 80
 var life_left = 0
@@ -37,42 +41,42 @@ var min_reputation = 0
 var player_fandoms = []
 
 var player_art_style = {
-	"Anime": 0,
-	"Chibi": 0,
-	"Cartoon": 0,
-	"Comic Book": 0,
-	"Manga": 0,
-	"Low-Poly": 0,
-	"Vector": 0,
-	"Crayoncore": 0,
-	"Realism": 0,
-	"Hyperrealism": 0,
-	"Semi-Realism": 0,
-	"Digital Painting": 0,
-	"Goth": 0,
-	"Dark Fantasy": 0,
-	"Grunge": 0,
-	"Surreal": 0,
-	"Vaporwave": 0,
-	"Ukiyo-e": 0,
-	"Calligraphy": 0,
-	"Furry": 0,
-	"Kemono": 0,
-	"Pony": 0,
+	"anime": 0,
+	"chibi": 0,
+	"cartoon": 0,
+	"comic Book": 0,
+	"manga": 0,
+	"low-Poly": 0,
+	"vector": 0,
+	"crayoncore": 0,
+	"realism": 0,
+	"hyperrealism": 0,
+	"semi-realism": 0,
+	"digital painting": 0,
+	"goth": 0,
+	"dark fantasy": 0,
+	"grunge": 0,
+	"surreal": 0,
+	"vaporwave": 0,
+	"ukiyo-e": 0,
+	"calligraphy": 0,
+	"furry": 0,
+	"kemono": 0,
+	"pony": 0,
 }
 
 var player_art_specializations = {
-	"Fanart": 0,
-	"Originals": 0,
-	"Corporate": 0,
-	"Generative AI": 0,
+	"fanart": 0,
+	"originals": 0,
+	"corporate": 0,
+	"generative AI": 0,
 }
 
 var player_skills = {
-	"Digital Art": 0,
-	"Traditional Art": 0,
-	"Pixel Art": 0,
-	"3D Modelling": 0,
-	"Animation": 0,
-	"Prompting": 0,
+	"digital art": 0,
+	"traditional art": 0,
+	"pixel art": 0,
+	"3D modelling": 0,
+	"animation": 0,
+	"prompting": 0,
 }
