@@ -5,6 +5,8 @@ class_name TaskButton
 @onready var repeat_button = $HBoxContainer/RepeatCheck
 @onready var button = $HBoxContainer/Button
 @onready var progress_bar = $HBoxContainer/Button/ProgressBar
+@onready var options_button = $HBoxContainer/Options
+@onready var options_popup = $Popup
 
 static var active_task : TaskButton = null
 
@@ -54,7 +56,6 @@ func activate():
 	active_task = self
 	is_active = true
 
-
 func pause():
 	is_active = false
 
@@ -71,12 +72,16 @@ func _on_task_complete():
 	is_active = false
 	progress_bar.value = 100
 	print("Finished task:", task_data.name)
+	_reset_task()
 	
 	if repeat_button and repeat_button.button_pressed:
 		print("repeating task: ", task_data.name)
-		_reset_task()
 		activate()
 
 func _reset_task():
 	progress = 0
 	progress_bar.value = 0
+
+
+func _on_options_pressed() -> void:
+	options_popup.popup_centered()

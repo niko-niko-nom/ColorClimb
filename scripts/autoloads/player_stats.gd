@@ -1,5 +1,7 @@
 extends Resource
 
+var tag_data := TagLoader.new()
+
 var population = Population
 
 var max_energy = 100
@@ -13,8 +15,8 @@ var happiness = 0
 var min_happiness = 0
 
 var max_creativity = 100
-var creativitiy = 0
-var min_creativitiy = 0
+var creativity = 0
+var min_creativity = 0
 
 var current_year = 2012
 
@@ -40,30 +42,9 @@ var min_reputation = 0
 
 var player_fandoms = []
 
-var player_art_style = {
-	"anime": 0,
-	"chibi": 0,
-	"cartoon": 0,
-	"comic Book": 0,
-	"manga": 0,
-	"low-Poly": 0,
-	"vector": 0,
-	"crayoncore": 0,
-	"realism": 0,
-	"hyperrealism": 0,
-	"semi-realism": 0,
-	"digital painting": 0,
-	"goth": 0,
-	"dark fantasy": 0,
-	"grunge": 0,
-	"surreal": 0,
-	"vaporwave": 0,
-	"ukiyo-e": 0,
-	"calligraphy": 0,
-	"furry": 0,
-	"kemono": 0,
-	"pony": 0,
-}
+var player_art_style = {}
+
+var unlocked_tags = {}
 
 var player_art_specializations = {
 	"fanart": 0,
@@ -80,3 +61,21 @@ var player_skills = {
 	"animation": 0,
 	"prompting": 0,
 }
+
+func gain_skill(tag: String, amount: int):
+	player_skills[tag] = player_skills.get(tag, 0) + amount
+	_check_unlocks()
+
+func _check_unlocks():
+	for tag_name in tag_data.TAGS:
+		var tag_info = tag_data.TAGS[tag_name]
+		if tag_info.has("requires") and not unlocked_tags.get(tag_name, false):
+			var requirements_met = true
+			for required_tag in tag_info.requires:
+				var needed = tag_info.requires[required_tag]
+				if player_skills.get(required_tag, 0) < needed:
+					requirements_met = false
+					break
+			if requirements_met:
+				unlocked_tags[tag_name] = true
+				print("Unlocked tag: ", tag_name)

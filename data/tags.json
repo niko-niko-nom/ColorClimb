@@ -1,0 +1,43 @@
+[
+	{
+		"name": "semi_realism",
+		"unlocked": true
+	},
+	{
+		"name": "realism",
+		"unlocked": false,
+		"requires": {
+			"semi_realism": 20
+		}
+	},
+	{
+		"name": "hyperrealism",
+		"unlocked": false,
+		"requires": {
+			"realism": 30
+		}
+	},
+	{
+		"name": "anime",
+		"unlocked": true
+	},
+	{
+		"name": "furry",
+		"unlocked": true
+	},
+	{
+		"name": "kemono",
+		"unlocked": false,
+		"requires": {
+			"anime": 14,
+			"furry": 8
+		}
+	},
+	{
+		"name": "low_poly",
+		"unlocked": true,
+		"relevant_for": {
+			"mediums": ["3d_modelling", "animation"]
+		}
+	},
+]
