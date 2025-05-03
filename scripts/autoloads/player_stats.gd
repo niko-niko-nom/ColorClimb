@@ -1,27 +1,27 @@
-extends Resource
+extends Node
 
 var tag_data := TagLoader.new()
 
 var population = Population
 
 var max_energy = 100
-var energy = 0
+var energy = 100
 var min_energy = 0
 
 var money = 0
 
 var max_happiness = 100
-var happiness = 0
+var happiness = 100
 var min_happiness = 0
 
 var max_creativity = 100
-var creativity = 0
+var creativity = 100
 var min_creativity = 0
 
 var current_year = 2012
 
 var max_life_left = 80
-var life_left = 0
+var life_left = 80
 var min_life_left = 0
 
 var max_anxiety = 100
@@ -37,7 +37,7 @@ var follower_count = 0
 var min_follower_count = 0
 
 var max_reputation = 100
-var reputation = 0
+var reputation = 50
 var min_reputation = 0
 
 var player_fandoms = []

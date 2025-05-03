@@ -1,13 +1,25 @@
 extends PopupPanel
 
+@onready var tag_list_container = self
+
 var tags = TagData
 var stats = PlayerStats
-var task_data = {}
-
-@onready var tag_list_container = self
+var task_data: Dictionary = {}
 
 func set_task(data: Dictionary):
 	task_data = data
+	show_for_task(task_data)
+
+func show_for_task(task: Dictionary) -> void:
+	# Clear old checkboxes
+	for child in tag_list_container.get_children():
+		child.queue_free()
+
+	for tag in task.get("available_tags", []):
+		if stats.unlocked_tags.get(tag, false) and is_tag_relevant(tag, task):
+			var checkbox = CheckBox.new()
+			checkbox.text = tag.capitalize()
+			tag_list_container.add_child(checkbox)
 
 func is_tag_relevant(tag: String, task: Dictionary) -> bool:
 	var tag_info = tags.tags_dict.get(tag, null)
@@ -28,10 +40,3 @@ func is_tag_relevant(tag: String, task: Dictionary) -> bool:
 			return true
 	
 	return false
-
-func _ready() -> void:
-	for tag in task_data.get("available_tags", []):
-		if stats.unlocked_tags.get(tag, false) and is_tag_relevant(tag, task_data):
-			var checkbox = CheckBox.new()
-			checkbox.text = tag.capitalize()
-			tag_list_container.add_child(checkbox)

@@ -10,35 +10,61 @@ class_name TaskButton
 
 static var active_task : TaskButton = null
 
-var task_data = {}
-var duration = 0.0
+@export var task_name: String = "Unnamed Task"
+@export var duration: float = 1.0
+@export var followers_fluc: int = 0
+@export var money_fluc: int = 0
+@export var energy_fluc: int = 0
+@export var happiness_fluc: int = 0
+@export var creativity_fluc: int = 0
+@export var life_fluc: int = 0
+@export var anxiety_fluc: int = 0
+@export var burnout_fluc: int = 0
+@export var reputation_fluc: int = 0
+@export var specialization: String = ""
+@export var fandoms: Array = []
+@export var artstyles: Array = []
+@export var mediums: Array = []
+
 var progress := 0.0
 var is_active := false
-var pending_task_data = null
 
 func _ready() -> void:
+	var data = get_task_data()
+	print("Data: ", data)
 	print("TaskButton size:", size)
 	call_deferred("_deferred_setup")
 
 func _deferred_setup():
 	button.pressed.connect(_on_button_pressed.bind())
-	
-	if pending_task_data != null:
-		set_task(pending_task_data)
+	_update_ui()
 
-func prepare_task(data: Dictionary):
-	pending_task_data = data
-
-func set_task(data: Dictionary):
-	task_data = data
-	button.text = task_data.name
-	duration = task_data.duration
+func _update_ui():
+	button.text = task_name
 	progress_bar.value = 0
 	progress = 0
 	is_active = false
 
+func get_task_data() -> Dictionary:
+	return {
+		"name": task_name,
+		"duration": duration,
+		"followers": followers_fluc,
+		"money": money_fluc,
+		"energy": energy_fluc,
+		"happiness": happiness_fluc,
+		"creativity": creativity_fluc,
+		"life": life_fluc,
+		"anxiety": anxiety_fluc,
+		"burnout": burnout_fluc,
+		"reputation": reputation_fluc,
+		"specialization": specialization,
+		"fandoms": fandoms,
+		"artstyles": artstyles,
+		"mediums": mediums,
+	}
+
 func _on_button_pressed() -> void:
-	print("button ", button, " was pressed.")
 	if active_task != self:
 		if active_task:
 			active_task.pause()
@@ -61,27 +87,85 @@ func pause():
 
 func _process(delta: float) -> void:
 	if is_active:
-		progress += delta / duration
+		var data = get_task_data()
+		if PlayerStats == null:
+			print("ERROR: PlayerStats is null!")
+			return
+		
+		var energy_per_second = data.energy / data.duration
+		var predicted_energy = PlayerStats.energy + energy_per_second * delta
+		
+		if predicted_energy < PlayerStats.min_energy:
+			print("Not enough energy to continue task.")
+			is_active = false
+			return
+		
+		progress += delta / data.duration
 		progress = min(progress, 1.0)
 		progress_bar.value = progress * 100.0
+		
+		PlayerStats.energy = predicted_energy
 		
 		if progress >= 1.0:
 			_on_task_complete()
 
+
 func _on_task_complete():
 	is_active = false
 	progress_bar.value = 100
-	print("Finished task:", task_data.name)
+	
+	apply_task_effects()
 	_reset_task()
 	
 	if repeat_button and repeat_button.button_pressed:
-		print("repeating task: ", task_data.name)
 		activate()
+
+func apply_task_effects():
+	var data = get_task_data()
+	PlayerStats.creativity += data.creativity
+	PlayerStats.money += data.money
+	PlayerStats.life_left += data.life
+	PlayerStats.anxiety += data.anxiety
+	PlayerStats.burnout += data.burnout
+	PlayerStats.reputation += data.reputation
+	
+	if data.specialization != "":
+		increase_specialization(data.specialization)
+	
+	if data.artstyles.size() > 0:
+		for style in data.artstyles:
+			increase_art_style(style)
+	
+	if data.fandoms.size() > 0:
+		for fandom in data.fandoms:
+			add_fandom(fandom)
+	
+	if data.mediums.size() > 0:
+		for medium in data.mediums:
+			increase_skill(medium)
 
 func _reset_task():
 	progress = 0
 	progress_bar.value = 0
 
-
 func _on_options_pressed() -> void:
-	options_popup.popup_centered()
+	var popup = options_popup
+	if popup:
+		popup.set_task(get_task_data())
+		popup.popup_centered()
+
+func increase_specialization(spec_type: String):
+	if PlayerStats.player_art_specializations.has(spec_type):
+		PlayerStats.player_art_specializations[spec_type] += 1
+
+func increase_art_style(style: String):
+	if PlayerStats.player_art_style.has(style):
+		PlayerStats.player_art_style[style] += 1
+
+func add_fandom(fandom_name: String):
+	if not PlayerStats.player_fandoms.has(fandom_name):
+		PlayerStats.player_fandoms.append(fandom_name)
+
+func increase_skill(medium: String):
+	if PlayerStats.player_skills.has(medium):
+		PlayerStats.player_skills[medium] += 1

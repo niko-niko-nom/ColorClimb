@@ -1,0 +1,142 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvfsnpou7lvvt"]
+
+[ext_resource type="Script" uid="uid://c4q3rt7yym6bb" path="res://ColorClimb/scripts/HUD.gd" id="1_6p6w8"]
+
+[sub_resource type="Theme" id="Theme_pgvxq"]
+RichTextLabel/font_sizes/normal_font_size = 6
+
+[node name="HUDContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 480.0
+offset_bottom = 40.0
+script = ExtResource("1_6p6w8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = SubResource("Theme_pgvxq")
+theme_override_constants/separation = 2
+
+[node name="Money" type="RichTextLabel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MONEY"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Year" type="RichTextLabel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "YEAR"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Followers" type="RichTextLabel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "FOLLOWERS"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Happiness" type="RichTextLabel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "HAPPINESS
+"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HappinessBar" type="ProgressBar" parent="HBoxContainer/Happiness"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rounded = true
+show_percentage = false
+
+[node name="Creativity" type="RichTextLabel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CREATIVITY
+"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreativityBar" type="ProgressBar" parent="HBoxContainer/Creativity"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rounded = true
+show_percentage = false
+
+[node name="Energy" type="RichTextLabel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ENERGY"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnergyBar" type="ProgressBar" parent="HBoxContainer/Energy"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+step = 1.0
+rounded = true
+show_percentage = false
+
+[node name="Anxiety" type="RichTextLabel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ANXIETY"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnxietyBar" type="ProgressBar" parent="HBoxContainer/Anxiety"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rounded = true
+show_percentage = false
+
+[node name="Reputation" type="RichTextLabel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ANXIETY"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReputationBar" type="ProgressBar" parent="HBoxContainer/Reputation"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rounded = true
+show_percentage = false

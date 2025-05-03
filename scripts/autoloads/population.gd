@@ -1,4 +1,4 @@
-extends Resource
+extends Node
 
 var available_fandoms = []
 var possible_interests = []
@@ -6,14 +6,27 @@ var possible_type = ["Lurker", "Liker", "Commenter", "Commissioner", "Patron", "
 
 
 func _ready() -> void:
-	possible_interests.append_array(PlayerStats.player_art_specializations)
-	possible_interests.append_array(PlayerStats.player_art_style)
-	possible_interests.append_array(PlayerStats.player_skills)
-	available_fandoms.append_array(update_available_fandoms(PlayerStats.current_year))
+	call_deferred("_initialize")
 
-func update_available_fandoms(current_year: int):
+func _initialize() -> void:
+	if PlayerStats.player_art_specializations != null:
+		possible_interests.append_array(PlayerStats.player_art_specializations.values())
+	if PlayerStats.player_art_style != null:
+		possible_interests.append_array(PlayerStats.player_art_style.values())
+	if PlayerStats.player_skills != null:
+		possible_interests.append_array(PlayerStats.player_skills.values())
+	
+	var fandoms = update_available_fandoms(PlayerStats.current_year)
+	if fandoms != null:
+		available_fandoms.append_array(fandoms)
+
+func update_available_fandoms(current_year: int) -> Array:
+	var fandoms = []
+	
 	available_fandoms.clear()
 	for fandom in FandomData.all_fandoms:
 		if fandom.is_available(current_year):
 			fandom.update_popularity(current_year)
-			available_fandoms.append(fandom)
+			fandoms.append(fandom)
+	
+	return fandoms

@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://ce2nwqbmso5vg"]
+[gd_scene load_steps=4 format=3 uid="uid://ce2nwqbmso5vg"]
 
 [ext_resource type="Script" uid="uid://dttjbshg8h27w" path="res://ColorClimb/scripts/game.gd" id="1_ukw1k"]
+[ext_resource type="PackedScene" uid="uid://cuykf0gmouvx6" path="res://ColorClimb/scenes/task_button.tscn" id="2_16nqc"]
+[ext_resource type="PackedScene" uid="uid://cvfsnpou7lvvt" path="res://ColorClimb/scenes/HUD.tscn" id="3_e81iy"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -11,18 +13,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ukw1k")
 
-[node name="TaskButtonContainer" type="VBoxContainer" parent="."]
-layout_direction = 2
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -190.0
-offset_top = -110.0
-offset_right = 190.0
-offset_bottom = 110.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 0
+[node name="TaskButton" parent="." instance=ExtResource("2_16nqc")]
+offset_left = 113.0
+offset_top = 78.0
+offset_right = 113.0
+offset_bottom = 78.0
+task_name = "Make 3D Fanart"
+duration = 5.0
+followers_fluc = 5
+money_fluc = 5
+energy_fluc = -15
+creativity_fluc = -5
+life_fluc = -5
+anxiety_fluc = 2
+burnout_fluc = 1
+specialization = "Fanart"
+mediums = ["Digital Art", "3D Modelling"]
+
+[node name="HUDContainer" parent="." instance=ExtResource("3_e81iy")]
