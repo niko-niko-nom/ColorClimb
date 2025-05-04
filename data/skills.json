@@ -1,5 +1,13 @@
 [
 	{
+		"name": "placeholder",
+		"unlocked": false,
+		"activated": false,
+		"requires": {
+			"placeholder2": 0
+		}
+	},
+	{
 		"name": "semi_realism",
 		"unlocked": true
 	},
@@ -39,5 +47,5 @@
 		"relevant_for": {
 			"mediums": ["3d_modelling", "animation"]
 		}
-	},
+	}
 ]

@@ -1,4 +1,4 @@
 extends Control
 
 func _ready():
-	pass
+	print("Unlocked Tags:", PlayerStats.unlocked_tags)

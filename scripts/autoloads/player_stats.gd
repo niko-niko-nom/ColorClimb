@@ -1,6 +1,6 @@
 extends Node
 
-var tag_data := TagLoader.new()
+var tag_data := SkillLoader.new()
 
 var population = Population
 
@@ -50,14 +50,14 @@ var player_art_specializations = {
 	"fanart": 0,
 	"originals": 0,
 	"corporate": 0,
-	"generative AI": 0,
+	"generative_ai": 0,
 }
 
 var player_skills = {
-	"digital art": 0,
-	"traditional art": 0,
-	"pixel art": 0,
-	"3D modelling": 0,
+	"digital_art": 0,
+	"traditional_art": 0,
+	"pixel_art": 0,
+	"3d_modelling": 0,
 	"animation": 0,
 	"prompting": 0,
 }
@@ -79,3 +79,36 @@ func _check_unlocks():
 			if requirements_met:
 				unlocked_tags[tag_name] = true
 				print("Unlocked tag: ", tag_name)
+
+func get_specializations() -> Dictionary:
+	return player_art_specializations
+
+func get_skills() -> Dictionary:
+	return player_skills
+
+func get_unlocked_specializations() -> Array:
+	var unlocked = []
+	for spec in player_art_specializations:
+		if player_art_specializations[spec] > 0:
+			unlocked.append(spec)
+	return unlocked
+
+func get_unlocked_fandoms() -> Array:
+	return player_fandoms.duplicate()
+
+func get_unlocked_artstyles() -> Array:
+	var unlocked = []
+	for style in player_art_style:
+		if player_art_style[style] > 0:
+			unlocked.append(style)
+	return unlocked
+
+func get_unlocked_mediums() -> Array:
+	var unlocked = []
+	for medium in player_skills:
+		if player_skills[medium] > 0:
+			unlocked.append(medium)
+	return unlocked
+
+func get_unlocked_tags() -> Array:
+	return unlocked_tags.keys()

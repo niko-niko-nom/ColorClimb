@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ce2nwqbmso5vg"]
 
 [ext_resource type="Script" uid="uid://dttjbshg8h27w" path="res://ColorClimb/scripts/game.gd" id="1_ukw1k"]
-[ext_resource type="PackedScene" uid="uid://cuykf0gmouvx6" path="res://ColorClimb/scenes/task_button.tscn" id="2_16nqc"]
+[ext_resource type="PackedScene" uid="uid://cuykf0gmouvx6" path="res://ColorClimb/scenes/activity_button.tscn" id="2_16nqc"]
 [ext_resource type="PackedScene" uid="uid://cvfsnpou7lvvt" path="res://ColorClimb/scenes/HUD.tscn" id="3_e81iy"]
 
 [node name="Game" type="Control"]
@@ -14,6 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_ukw1k")
 
 [node name="TaskButton" parent="." instance=ExtResource("2_16nqc")]
+layout_mode = 1
 offset_left = 113.0
 offset_top = 78.0
 offset_right = 113.0
@@ -27,7 +28,7 @@ creativity_fluc = -5
 life_fluc = -5
 anxiety_fluc = 2
 burnout_fluc = 1
-specialization = "Fanart"
-mediums = ["Digital Art", "3D Modelling"]
+artstyles = ["low_poly", "anime", "furry"]
+mediums = ["digital_art", "3d_modelling"]
 
 [node name="HUDContainer" parent="." instance=ExtResource("3_e81iy")]
