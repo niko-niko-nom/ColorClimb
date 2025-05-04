@@ -129,41 +129,17 @@ func apply_task_effects():
 	PlayerStats.burnout += data.burnout
 	PlayerStats.reputation += data.reputation
 	
-	if data.specializations.size() > 0:
-		for specialization in data.specializations:
-			increase_specializations(specialization)
-	
-	if data.artstyles.size() > 0:
-		for style in data.artstyles:
-			increase_art_style(style)
-	
 	if data.fandoms.size() > 0:
 		for fandom in data.fandoms:
 			add_fandom(fandom)
-	
-	if data.mediums.size() > 0:
-		for medium in data.mediums:
-			increase_skill(medium)
 
 func _reset_task():
 	progress = 0
 	progress_bar.value = 0
 
-func increase_specializations(spec_type: String):
-	if PlayerStats.player_art_specializations.has(spec_type):
-		PlayerStats.player_art_specializations[spec_type] += 1
-
-func increase_art_style(style: String):
-	if PlayerStats.player_art_style.has(style):
-		PlayerStats.player_art_style[style] += 1
-
 func add_fandom(fandom_name: String):
 	if not PlayerStats.player_fandoms.has(fandom_name):
 		PlayerStats.player_fandoms.append(fandom_name)
-
-func increase_skill(medium: String):
-	if PlayerStats.player_skills.has(medium):
-		PlayerStats.player_skills[medium] += 1
 
 func get_available_activities():
 	pass

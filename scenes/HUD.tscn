@@ -140,3 +140,8 @@ grow_horizontal = 2
 grow_vertical = 2
 rounded = true
 show_percentage = false
+
+[node name="SaveButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]

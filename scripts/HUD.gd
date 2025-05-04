@@ -13,6 +13,7 @@ extends Control
 @onready var anxiety_progress_bar = $HBoxContainer/Anxiety/AnxietyBar
 @onready var reputation_container = $HBoxContainer/Reputation
 @onready var reputation_progress_bar = $HBoxContainer/Reputation/ReputationBar
+@onready var save_button: Button = $HBoxContainer/SaveButton
 
 var last_money := -1
 var last_year := -1
@@ -60,3 +61,6 @@ func _process(delta: float) -> void:
 		reputation_container.text = "Reputation: " + str(PlayerStats.reputation)
 		reputation_progress_bar.value = PlayerStats.reputation
 		last_reputation = PlayerStats.reputation
+
+func _on_save_button_pressed() -> void:
+	GlobalConfigFile.save_game()

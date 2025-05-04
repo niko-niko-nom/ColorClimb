@@ -1,4 +1,4 @@
 extends Control
 
 func _ready():
-	pass
+	GlobalConfigFile.start_new_game()
