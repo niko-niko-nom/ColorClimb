@@ -1,6 +1,7 @@
 [
 	{
 		"name": "placeholder",
+		"level": 0,
 		"unlocked": false,
 		"activated": false,
 		"requires": {

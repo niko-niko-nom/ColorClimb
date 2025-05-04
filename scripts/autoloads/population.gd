@@ -11,10 +11,10 @@ func _ready() -> void:
 func _initialize() -> void:
 	if PlayerStats.player_art_specializations != null:
 		possible_interests.append_array(PlayerStats.player_art_specializations.values())
-	if PlayerStats.player_art_style != null:
-		possible_interests.append_array(PlayerStats.player_art_style.values())
 	if PlayerStats.player_skills != null:
 		possible_interests.append_array(PlayerStats.player_skills.values())
+	if PlayerStats.player_mediums != null:
+		possible_interests.append_array(PlayerStats.player_mediums.values())
 	
 	var fandoms = update_available_fandoms(PlayerStats.current_year)
 	if fandoms != null:

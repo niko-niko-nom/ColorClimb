@@ -1,6 +1,6 @@
 extends Node
 
-var tag_data := SkillLoader.new()
+@onready var skill_data = SkillsData.load_skills()
 
 var population = Population
 
@@ -40,11 +40,9 @@ var max_reputation = 100
 var reputation = 50
 var min_reputation = 0
 
-var player_fandoms = []
+var player_fandoms = {}
 
-var player_art_style = {}
-
-var unlocked_tags = {}
+var player_skills = {}
 
 var player_art_specializations = {
 	"fanart": 0,
@@ -53,62 +51,17 @@ var player_art_specializations = {
 	"generative_ai": 0,
 }
 
-var player_skills = {
-	"digital_art": 0,
-	"traditional_art": 0,
-	"pixel_art": 0,
-	"3d_modelling": 0,
-	"animation": 0,
-	"prompting": 0,
-}
+var player_mediums = {}
 
-func gain_skill(tag: String, amount: int):
-	player_skills[tag] = player_skills.get(tag, 0) + amount
+func _ready() -> void:
 	_check_unlocks()
 
 func _check_unlocks():
-	for tag_name in tag_data.TAGS:
-		var tag_info = tag_data.TAGS[tag_name]
-		if tag_info.has("requires") and not unlocked_tags.get(tag_name, false):
-			var requirements_met = true
-			for required_tag in tag_info.requires:
-				var needed = tag_info.requires[required_tag]
-				if player_skills.get(required_tag, 0) < needed:
-					requirements_met = false
-					break
-			if requirements_met:
-				unlocked_tags[tag_name] = true
-				print("Unlocked tag: ", tag_name)
+	for skill in skill_data.values():
+		if skill["unlocked"]:
+			player_skills[skill] = skill.duplicate()
+			print("Skill in skill_data: ", skill)
+	print("Player skills: ", player_skills)
 
-func get_specializations() -> Dictionary:
-	return player_art_specializations
-
-func get_skills() -> Dictionary:
-	return player_skills
-
-func get_unlocked_specializations() -> Array:
-	var unlocked = []
-	for spec in player_art_specializations:
-		if player_art_specializations[spec] > 0:
-			unlocked.append(spec)
-	return unlocked
-
-func get_unlocked_fandoms() -> Array:
-	return player_fandoms.duplicate()
-
-func get_unlocked_artstyles() -> Array:
-	var unlocked = []
-	for style in player_art_style:
-		if player_art_style[style] > 0:
-			unlocked.append(style)
-	return unlocked
-
-func get_unlocked_mediums() -> Array:
-	var unlocked = []
-	for medium in player_skills:
-		if player_skills[medium] > 0:
-			unlocked.append(medium)
-	return unlocked
-
-func get_unlocked_tags() -> Array:
-	return unlocked_tags.keys()
+func gain_skill(skill: String, amount: int):
+	pass

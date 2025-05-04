@@ -8,7 +8,6 @@ var skills_dict := {}
 
 func _ready():
 	load_skills()
-	print("Loaded skills: ", skills_dict)
 
 func load_skills():
 	var file = FileAccess.open(SKILLS_JSON_PATH, FileAccess.READ)
@@ -25,7 +24,8 @@ func load_skills():
 	
 	for entry in data:
 		if entry.has("name"):
-			skills_dict[ entry["name"] ] = entry
-			print("Entry: ", entry)
+			skills_dict[entry.name] = entry
 		else:
 			push_warning("Entry missing 'name' field: %s" % str(entry))
+			
+	return skills_dict
