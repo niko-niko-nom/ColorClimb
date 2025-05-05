@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ce2nwqbmso5vg"]
 
 [ext_resource type="Script" uid="uid://dttjbshg8h27w" path="res://ColorClimb/scripts/game.gd" id="1_ukw1k"]
-[ext_resource type="PackedScene" uid="uid://cuykf0gmouvx6" path="res://ColorClimb/scenes/activity_button.tscn" id="2_16nqc"]
 [ext_resource type="PackedScene" uid="uid://cvfsnpou7lvvt" path="res://ColorClimb/scenes/HUD.tscn" id="3_e81iy"]
+[ext_resource type="PackedScene" uid="uid://k308vfevq0g2" path="res://ColorClimb/scenes/medium_button.tscn" id="3_xcmfd"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -13,22 +13,36 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ukw1k")
 
-[node name="TaskButton" parent="." instance=ExtResource("2_16nqc")]
-layout_mode = 1
-offset_left = 113.0
-offset_top = 78.0
-offset_right = 113.0
-offset_bottom = 78.0
-task_name = "Make 3D Fanart"
-duration = 5.0
-followers_fluc = 5
-money_fluc = 5
-energy_fluc = -15
-creativity_fluc = -5
-life_fluc = -5
-anxiety_fluc = 2
-burnout_fluc = 1
-artstyles = ["low_poly", "anime", "furry"]
-mediums = ["digital_art", "3d_modelling"]
-
 [node name="HUDContainer" parent="." instance=ExtResource("3_e81iy")]
+
+[node name="MediumButton2" parent="." instance=ExtResource("3_xcmfd")]
+offset_left = 62.0
+offset_top = 80.0
+offset_right = 126.0
+offset_bottom = 112.0
+medium_name = "Cat"
+popup_activities = ["Pet Cat"]
+
+[node name="MediumButton3" parent="." instance=ExtResource("3_xcmfd")]
+offset_left = 274.0
+offset_top = 81.0
+offset_right = 338.0
+offset_bottom = 113.0
+medium_name = "Sketchbook"
+popup_activities = ["Doodle In Sketchbook", "Paint With Gouache"]
+
+[node name="MediumButton4" parent="." instance=ExtResource("3_xcmfd")]
+offset_left = 444.0
+offset_top = 147.0
+offset_right = 508.0
+offset_bottom = 179.0
+medium_name = "Lump of Clay"
+popup_activities = ["Play Around With Clay"]
+
+[node name="MediumButton5" parent="." instance=ExtResource("3_xcmfd")]
+offset_left = 270.0
+offset_top = 288.0
+offset_right = 334.0
+offset_bottom = 320.0
+medium_name = "Front Door"
+popup_activities = ["Go For A Walk"]

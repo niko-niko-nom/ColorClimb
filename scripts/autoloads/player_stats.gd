@@ -4,6 +4,8 @@ extends Node
 
 var game_seed = ""
 
+var first_startup = true
+
 var population = Population
 
 var max_energy = 100
@@ -55,12 +57,7 @@ var player_art_specializations = {
 
 var player_mediums = {}
 
-func _ready() -> void:
-	_check_unlocks_on_new_game()
-
 func _check_unlocks_on_new_game():
 	for skill in skill_data.values():
 		if skill["unlocked"]:
 			player_skills[skill] = skill.duplicate()
-			print("Skill in skill_data: ", skill)
-	print("Player skills: ", player_skills)

@@ -16,12 +16,12 @@ func start_new_game():
 func save_game(manual := true):
 	ensure_save_folder()
 	
-	var seed = PlayerStats.game_seed
-	var file_name = "save_%s.cfg" % seed if manual else "save_%s_auto1.cfg" % seed
+	var game_seed = PlayerStats.game_seed
+	var file_name = "save_%s.cfg" % game_seed if manual else "save_%s_auto1.cfg" % game_seed
 	var save_path = "user://saves/" + file_name
 	
 	var config = ConfigFile.new()
-	config.set_value("meta", "seed", seed)
+	config.set_value("meta", "game_seed", game_seed)
 	config.set_value("player", "anxiety", PlayerStats.anxiety)
 	
 	var err = config.save(save_path)
@@ -33,9 +33,9 @@ func save_game(manual := true):
 func save_autosave():
 	ensure_save_folder()
 	
-	var seed = PlayerStats.game_seed
-	var autosave_name_old = "save_%s_auto1.cfg" % seed
-	var autosave_backup = "save_%s_auto2.cfg" % seed
+	var game_seed = PlayerStats.game_seed
+	var autosave_name_old = "save_%s_auto1.cfg" % game_seed
+	var autosave_backup = "save_%s_auto2.cfg" % game_seed
 	
 	var dir = DirAccess.open("user://saves")
 	if dir == null:
@@ -49,13 +49,13 @@ func save_autosave():
 		
 	save_game(false)
 
-func find_existing_save(seed: String) -> String:
+func find_existing_save(game_seed: String) -> String:
 	ensure_save_folder()
 	var dir = DirAccess.open("user://saves")
 	dir.list_dir_begin()
 	var file = dir.get_next()
 	while file != "":
-		if file.begins_with("save_%s" % seed) and file.ends_with(".cfg"):
+		if file.begins_with("save_%s" % game_seed) and file.ends_with(".cfg"):
 			dir.list_dir_end()
 			return "user://saves/" + file
 		file = dir.get_next()

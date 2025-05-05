@@ -6,140 +6,136 @@ class_name MediumButton
 @onready var progress_bar: ProgressBar = $Texture/ProgressBar
 @onready var repeat_check: CheckBox = $RepeatCheck
 @onready var placeholder_label: Label = $PlaceholderLabel
+@onready var popup_menu: PopupMenu = $PopupMenu
+@onready var timer: Timer = $Timer
 
-static var active_task : MediumButton = null
+static var active_task: MediumButton = null
 
-@export var task_name: String = "Unnamed Task"
-@export var duration: float = 1.0
-@export var followers_fluc: int = 0
-@export var money_fluc: int = 0
-@export var energy_fluc: int = 0
-@export var happiness_fluc: int = 0
-@export var creativity_fluc: int = 0
-@export var life_fluc: int = 0
-@export var anxiety_fluc: int = 0
-@export var burnout_fluc: int = 0
-@export var reputation_fluc: int = 0
-@export var specializations: Array = []
-@export var fandoms: Array = []
-@export var artstyles: Array = []
-@export var mediums: Array = []
+@export var medium_name: String = "Unnamed Medium"
+@export var popup_activities: Array = []
 
 var progress := 0.0
 var is_active := false
-var task_data: Dictionary = {}
+var activity_data: Dictionary = {}
+var timer_steps := 0.1
+var remaining_time := 0.0
 
 func _ready() -> void:
-	await get_tree().process_frame
-	var data = get_task_data()
-	call_deferred("_deferred_setup")
+	repeat_check.set_pressed(false)
+	if PlayerStats.first_startup:
+		upon_first_startup()
+	else:
+		populate_popup_menu()
+	timer.timeout.connect(_on_timer_timeout)
 
-func _deferred_setup():
+func upon_first_startup() -> void:
 	_update_ui()
+	populate_popup_menu()
 
-func _update_ui():
-	placeholder_label.text = task_name
+func _update_ui() -> void:
+	placeholder_label.text = medium_name
 	progress_bar.value = 0
-	progress = 0
+	progress = 0.0
 	is_active = false
 
-func get_task_data() -> Dictionary:
-	var data = {
-		"name": task_name,
-		"duration": duration,
-		"followers": followers_fluc,
-		"money": money_fluc,
-		"energy": energy_fluc,
-		"happiness": happiness_fluc,
-		"creativity": creativity_fluc,
-		"life": life_fluc,
-		"anxiety": anxiety_fluc,
-		"burnout": burnout_fluc,
-		"reputation": reputation_fluc,
-		"specializations": specializations,
-		"fandoms": fandoms,
-		"artstyles": artstyles,
-		"mediums": mediums,
-	}
-	
-	return data
+func populate_popup_menu() -> void:
+	for activity in popup_activities:
+		var data = get_activity_data(activity)
+		if data and data.get("unlocked"):
+			popup_menu.add_item(activity)
 
-func _on_texture_rect_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		if active_task != self:
-			if active_task:
-				active_task.pause()
-			activate()
-		else:
-			if is_active:
-				pause()
-			else:
-				activate()
-
-func activate():
-	if progress >= 1.0:
-		_reset_task()
-		
-	active_task = self
-	is_active = true
-
-func pause():
-	is_active = false
-
-func _process(delta: float) -> void:
-	if is_active:
-		var data = get_task_data()
-		if PlayerStats == null:
-			print("ERROR: PlayerStats is null!")
-			return
-		
-		var energy_per_second = data.energy / data.duration
-		var predicted_energy = PlayerStats.energy + energy_per_second * delta
-		
-		if predicted_energy < PlayerStats.min_energy:
-			print("Not enough energy to continue task.")
-			is_active = false
-			return
-		
-		progress += delta / data.duration
-		progress = min(progress, 1.0)
-		progress_bar.value = progress * 100.0
-		
-		PlayerStats.energy = predicted_energy
-		
-		if progress >= 1.0:
-			_on_task_complete()
-
-func _on_task_complete():
-	is_active = false
-	progress_bar.value = 100
-	
-	apply_task_effects()
-	_reset_task()
-	
-	if repeat_check and repeat_check.button_pressed:
+func _on_popup_menu_id_pressed(id: int) -> void:
+	var clicked = popup_menu.get_item_text(id)
+	var data = get_activity_data(clicked)
+	if data:
+		activity_data = data
 		activate()
 
-func apply_task_effects():
-	var data = get_task_data()
-	PlayerStats.creativity += data.creativity
-	PlayerStats.money += data.money
-	PlayerStats.life_left += data.life
-	PlayerStats.anxiety += data.anxiety
-	PlayerStats.burnout += data.burnout
-	PlayerStats.reputation += data.reputation
+func get_activity_data(clicked_activity: String) -> Dictionary:
+	var key_name = clicked_activity.replacen(" ", "_").to_lower()
+	for key in ActivitiesData.activities_dict.keys():
+		var data = ActivitiesData.activities_dict[key]
+		if data.get("name", "") == key_name:
+			return data
+	return {}
+
+func _on_texture_rect_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_RIGHT:
+			var popup_size = popup_menu.size
+			popup_menu.position = _clamp_position(get_global_mouse_position(), popup_size)
+			popup_menu.visible = true
+		
+		elif event.button_index == MOUSE_BUTTON_LEFT:
+			if active_task != self:
+				if not activity_data == {}:
+					if is_active:
+						pause()
+					else:
+						activate()
+			else:
+				if is_active:
+					pause()
+				else:
+					activate()
+
+func _clamp_position(pos: Vector2, size: Vector2) -> Vector2:
+	var screen_size = get_viewport().get_visible_rect().size
+	var margin = 25
+	return Vector2(
+		clamp(pos.x, margin, screen_size.x - size.x - margin),
+		clamp(pos.y, margin, screen_size.y - size.y - margin)
+	)
+
+func activate() -> void:
+	if not activity_data:
+		return
 	
-	if data.fandoms.size() > 0:
-		for fandom in data.fandoms:
-			add_fandom(fandom)
+	if active_task and active_task != self and active_task.is_active:
+		active_task.pause()
+	
+	active_task = self
+	
+	if progress >= 1.0:
+		reset_activity()
+		return
+		
+	remaining_time = activity_data.get("duration", 0.0)
+	is_active = true
+	timer.start(timer_steps)
 
-func _reset_task():
-	progress = 0
+func pause() -> void:
+	is_active = false
+	timer.stop()
+
+func reset_activity() -> void:
+	progress = 0.0
 	progress_bar.value = 0
+	timer.stop()
+	if repeat_check and repeat_check.button_pressed:
+		activate()
+	else:
+		is_active = false
+		active_task = null
 
-func add_fandom(fandom_name: String):
-	if not PlayerStats.player_fandoms.has(fandom_name):
-		PlayerStats.player_fandoms.append(fandom_name)
+func _on_timer_timeout() -> void:
+	if not is_active:
+		return
+	var duration = activity_data.get("duration", 1.0)
+	var energy_cost = activity_data.get("energy", 0.0)
+	var step_energy = energy_cost * (timer_steps / duration)
+	if PlayerStats.energy + step_energy < PlayerStats.min_energy:
+		print("Not enough energy to continue task.")
+		pause()
+		return
+	PlayerStats.energy += step_energy
+	progress += timer_steps / duration
+	progress = clamp(progress, 0.0, 1.0)
+	progress_bar.value = progress * 100
+	if progress >= 1.0:
+		pause()
+		on_activity_finished()
+		reset_activity()
 
-func get_available_activities():
-	pass
+func on_activity_finished() -> void:
+	PlayerStats.money += activity_data["money"]
