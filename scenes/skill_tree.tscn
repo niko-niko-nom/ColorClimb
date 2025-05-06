@@ -16,37 +16,65 @@ script = ExtResource("1_wm1dm")
 [node name="PathDrawer" type="Node2D" parent="."]
 script = ExtResource("2_1yc7p")
 
-[node name="Sketching" parent="." instance=ExtResource("1_it05j")]
+[node name="Sketching" parent="." node_paths=PackedStringArray("connect_skills") instance=ExtResource("1_it05j")]
 layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = 108.0
 offset_top = 48.0
 offset_right = 148.0
 offset_bottom = 88.0
+grow_horizontal = 1
+grow_vertical = 1
 skill_button_name = "Sketching"
-connect_skills = Array[NodePath]([NodePath("../Furry"), NodePath("../Anime")])
+connect_skills = [NodePath("../Furry"), NodePath("../Anime")]
 
-[node name="Furry" parent="." instance=ExtResource("1_it05j")]
+[node name="Furry" parent="." node_paths=PackedStringArray("connect_skills") instance=ExtResource("1_it05j")]
 layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = 223.0
 offset_top = 58.0
 offset_right = 263.0
 offset_bottom = 98.0
+grow_horizontal = 1
+grow_vertical = 1
 skill_button_name = "Furry"
-connect_skills = Array[NodePath]([NodePath("../Kemono")])
+connect_skills = [NodePath("../Kemono")]
 
-[node name="Anime" parent="." instance=ExtResource("1_it05j")]
+[node name="Anime" parent="." node_paths=PackedStringArray("connect_skills") instance=ExtResource("1_it05j")]
 layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = 178.0
 offset_top = 152.0
 offset_right = 218.0
 offset_bottom = 192.0
+grow_horizontal = 1
+grow_vertical = 1
 skill_button_name = "Anime"
-connect_skills = Array[NodePath]([NodePath("../Kemono")])
+connect_skills = [NodePath("../Kemono")]
 
 [node name="Kemono" parent="." instance=ExtResource("1_it05j")]
 layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = 260.0
 offset_top = 120.0
 offset_right = 300.0
 offset_bottom = 160.0
+grow_horizontal = 1
+grow_vertical = 1
 skill_button_name = "Kemono"

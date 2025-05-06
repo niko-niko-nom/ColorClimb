@@ -5,7 +5,7 @@ extends TextureButton
 @onready var label: Label = $MarginContainer/Label
 
 @export var skill_button_name: String = "Placeholder Name"
-@export var connect_skills: Array[NodePath] = []
+@export var connect_skills: Array[Node] = []
 
 var is_activated : bool
 var is_unlocked : bool
@@ -26,7 +26,7 @@ func first_startup() -> void:
 		if key_name != value["name"]:
 			continue
 		
-		is_unlocked = check_if_unlocked(value)
+		is_unlocked = check_if_unlocked(value["name"])
 		if is_unlocked:
 			is_activated = bool(value["activated"])
 			if is_activated and is_unlocked:
@@ -51,14 +51,6 @@ func _on_pressed() -> void:
 			print(is_activated)
 
 func check_if_unlocked(value) -> bool:
-	if not value.has("requires") or value["requires"].is_empty():
+	if value in PlayerStats.player_skills:
 		return true
-	
-	var reqs: Dictionary = value["requires"]
-	for requirement in reqs.keys():
-		var points_needed = reqs[requirement]
-		var player_points = PlayerStats.player_skills.get(requirement, 0)
-		
-		if player_points < points_needed:
-			return false
-	return true
+	return false
