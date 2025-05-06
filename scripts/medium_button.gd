@@ -122,13 +122,13 @@ func _on_timer_timeout() -> void:
 	if not is_active:
 		return
 	var duration = activity_data.get("duration", 1.0)
-	var energy_cost = activity_data.get("energy", 0.0)
-	var step_energy = energy_cost * (timer_step / duration)
-	if PlayerStats.energy + step_energy < PlayerStats.min_energy:
+	var energy_fluc = activity_data.get("energy", 0.0)
+	var energy_per_step = energy_fluc * timer_step
+	if PlayerStats.energy + energy_per_step < PlayerStats.min_energy:
 		print("Not enough energy to continue task.")
 		pause()
 		return
-	PlayerStats.energy += step_energy
+	PlayerStats.energy += energy_per_step
 	progress += timer_step / duration
 	progress = clamp(progress, 0.0, 1.0)
 	progress_bar.value = progress * 100
@@ -139,3 +139,4 @@ func _on_timer_timeout() -> void:
 
 func on_activity_finished() -> void:
 	PlayerStats.money += activity_data["money"]
+	PlayerStats.follower_count += activity_data["followers"]
