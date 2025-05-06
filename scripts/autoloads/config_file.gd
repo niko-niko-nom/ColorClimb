@@ -1,17 +1,15 @@
 extends Node
 
-var current_game_seed: String = ""
-
 func start_new_game():
 	ensure_save_folder()
 	
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	
-	current_game_seed = "%d_%06d" % [Time.get_unix_time_from_system(), rng.randi_range(0, 999999)]
-	PlayerStats.game_seed = current_game_seed
+	PlayerStats.game_seed = Time.get_unix_time_from_system() + rng.randi_range(0, 999999)
+	rng.seed = PlayerStats.game_seed
 	
-	print("New game started with seed: ", current_game_seed)
+	print("New game started with seed: ", PlayerStats.game_seed)
 
 func save_game(manual := true):
 	ensure_save_folder()
