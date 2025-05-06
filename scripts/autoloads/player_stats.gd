@@ -55,24 +55,7 @@ var player_mediums = {}
 
 var player_skills = {"Sketching": 12, "Furry": 15,}
 
-#func check_for_unlocks():
-	#for key in player_skills:
-		#for dict in SkillsData.skills_dict:
-			#for requirement in SkillsData.skills_dict[dict]["requires"]:
-				#if key in SkillsData.skills_dict[dict]["requires"]:
-					#if player_skills[key] >= SkillsData.skills_dict[dict]["requires"][requirement]:
-						#if dict not in player_skills:
-							#SkillsData.skills_dict[dict]["unlocked"] = true
-							#print(dict, " is now unlocked!")
-							#player_skills[dict] = 0
-					#else:
-						#if dict in player_skills:
-							#player_skills.erase(dict)
-						#SkillsData.skills_dict[dict]["unlocked"] = false
-						#print("Not all requirements are met for skill to unlock: ", dict)
-						#break
-	#print("Checked for unlocks!")
-	#print(player_skills)
+var player_activities = {}
 
 func check_for_unlocks():
 	for skill_name in SkillsData.skills_dict:
@@ -155,4 +138,18 @@ func update_skills(skills, point_amount):
 func update_skill_points(skill, point_amount):
 	player_skills[skill] += point_amount
 	print(player_skills[skill])
+	check_for_unlocks()
+
+func update_activities(activities, point_amount):
+	for activity in activities:
+		if activity in player_activities:
+			update_activity_points(activity, point_amount)
+		else:
+			player_activities[activity] = 0
+			print(activity, " has been added to player activities!")
+			check_for_unlocks()
+
+func update_activity_points(activity, point_amount):
+	player_activities[activity] += point_amount
+	print(player_activities[activity])
 	check_for_unlocks()
