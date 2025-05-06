@@ -24,7 +24,7 @@ var last_energy := -1.0
 var last_anxiety := -1.0
 var last_reputation := 1.0
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if PlayerStats.money != last_money:
 		money_container.text = "Money: " + str(PlayerStats.money)
 		last_money = PlayerStats.money

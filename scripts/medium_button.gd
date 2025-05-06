@@ -17,7 +17,7 @@ static var active_task: MediumButton = null
 var progress := 0.0
 var is_active := false
 var activity_data: Dictionary = {}
-var timer_steps := 0.1
+var timer_step := 0.1
 var remaining_time := 0.0
 
 func _ready() -> void:
@@ -52,7 +52,7 @@ func _on_popup_menu_id_pressed(id: int) -> void:
 		activate()
 
 func get_activity_data(clicked_activity: String) -> Dictionary:
-	var key_name = clicked_activity.replacen(" ", "_").to_lower()
+	var key_name = clicked_activity
 	for key in ActivitiesData.activities_dict.keys():
 		var data = ActivitiesData.activities_dict[key]
 		if data.get("name", "") == key_name:
@@ -79,12 +79,12 @@ func _on_texture_rect_gui_input(event: InputEvent) -> void:
 				else:
 					activate()
 
-func _clamp_position(pos: Vector2, size: Vector2) -> Vector2:
+func _clamp_position(pos: Vector2, popup_size: Vector2) -> Vector2:
 	var screen_size = get_viewport().get_visible_rect().size
 	var margin = 25
 	return Vector2(
-		clamp(pos.x, margin, screen_size.x - size.x - margin),
-		clamp(pos.y, margin, screen_size.y - size.y - margin)
+		clamp(pos.x, margin, screen_size.x - popup_size.x - margin),
+		clamp(pos.y, margin, screen_size.y - popup_size.y - margin)
 	)
 
 func activate() -> void:
@@ -102,7 +102,7 @@ func activate() -> void:
 		
 	remaining_time = activity_data.get("duration", 0.0)
 	is_active = true
-	timer.start(timer_steps)
+	timer.start(timer_step)
 
 func pause() -> void:
 	is_active = false
@@ -123,13 +123,13 @@ func _on_timer_timeout() -> void:
 		return
 	var duration = activity_data.get("duration", 1.0)
 	var energy_cost = activity_data.get("energy", 0.0)
-	var step_energy = energy_cost * (timer_steps / duration)
+	var step_energy = energy_cost * (timer_step / duration)
 	if PlayerStats.energy + step_energy < PlayerStats.min_energy:
 		print("Not enough energy to continue task.")
 		pause()
 		return
 	PlayerStats.energy += step_energy
-	progress += timer_steps / duration
+	progress += timer_step / duration
 	progress = clamp(progress, 0.0, 1.0)
 	progress_bar.value = progress * 100
 	if progress >= 1.0:

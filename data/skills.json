@@ -1,52 +1,75 @@
 [
 	{
-		"name": "placeholder",
+		"name": "Placeholder",
 		"level": 0,
 		"unlocked": false,
 		"activated": false,
 		"requires": {
-			"placeholder2": 0
+			"Placeholder2": 0
 		}
 	},
 	{
-		"name": "semi_realism",
-		"unlocked": true
-	},
-	{
-		"name": "realism",
+		"name": "Semi-Realism",
+		"level": 0,
 		"unlocked": false,
+		"activated": false,
 		"requires": {
-			"semi_realism": 20
+			"Sketching": 15
 		}
 	},
 	{
-		"name": "hyperrealism",
+		"name": "Realism",
+		"level": 0,
 		"unlocked": false,
+		"activated": false,
 		"requires": {
-			"realism": 30
+			"Semi-Realism": 20
 		}
 	},
 	{
-		"name": "anime",
-		"unlocked": true
-	},
-	{
-		"name": "furry",
-		"unlocked": true
-	},
-	{
-		"name": "kemono",
+		"name": "Hyperrealism",
+		"level": 0,
 		"unlocked": false,
+		"activated": false,
 		"requires": {
-			"anime": 14,
-			"furry": 8
+			"Realism": 30
 		}
 	},
 	{
-		"name": "low_poly",
+		"name": "Anime",
+		"level": 0,
+		"unlocked": false,
+		"activated": false,
+		"requires": {
+			"Sketching": 6
+		}
+	},
+	{
+		"name": "Furry",
+		"level": 0,
+		"unlocked": false,
+		"activated": false,
+		"requires": {
+			"Sketching": 9
+		}
+	},
+	{
+		"name": "Kemono",
+		"level": 0,
+		"unlocked": false,
+		"activated": false,
+		"requires": {
+			"Anime": 14,
+			"Furry": 8
+		}
+	},
+	{
+		"name": "Sketching",
+		"level": 0,
 		"unlocked": true,
-		"relevant_for": {
-			"mediums": ["3d_modelling", "animation"]
+		"activated": true,
+		"requires": {
+			
 		}
-	}
+	},
 ]

@@ -1,4 +1,8 @@
-[gd_scene format=3 uid="uid://84hpjogr8ru"]
+[gd_scene load_steps=4 format=3 uid="uid://84hpjogr8ru"]
+
+[ext_resource type="PackedScene" uid="uid://b13mf37fhi1e6" path="res://ColorClimb/scenes/skill_button.tscn" id="1_it05j"]
+[ext_resource type="Script" uid="uid://c4h51wass1ldh" path="res://ColorClimb/scripts/skill_tree.gd" id="1_wm1dm"]
+[ext_resource type="Script" uid="uid://ykk80jfjrqy" path="res://ColorClimb/scripts/path_2d.gd" id="2_1yc7p"]
 
 [node name="SkillTree" type="Control"]
 layout_mode = 3
@@ -7,3 +11,42 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_wm1dm")
+
+[node name="PathDrawer" type="Node2D" parent="."]
+script = ExtResource("2_1yc7p")
+
+[node name="Sketching" parent="." instance=ExtResource("1_it05j")]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 48.0
+offset_right = 148.0
+offset_bottom = 88.0
+skill_button_name = "Sketching"
+connect_skills = Array[NodePath]([NodePath("../Furry"), NodePath("../Anime")])
+
+[node name="Furry" parent="." instance=ExtResource("1_it05j")]
+layout_mode = 0
+offset_left = 223.0
+offset_top = 58.0
+offset_right = 263.0
+offset_bottom = 98.0
+skill_button_name = "Furry"
+connect_skills = Array[NodePath]([NodePath("../Kemono")])
+
+[node name="Anime" parent="." instance=ExtResource("1_it05j")]
+layout_mode = 0
+offset_left = 178.0
+offset_top = 152.0
+offset_right = 218.0
+offset_bottom = 192.0
+skill_button_name = "Anime"
+connect_skills = Array[NodePath]([NodePath("../Kemono")])
+
+[node name="Kemono" parent="." instance=ExtResource("1_it05j")]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 120.0
+offset_right = 300.0
+offset_bottom = 160.0
+skill_button_name = "Kemono"

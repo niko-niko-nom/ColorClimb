@@ -15,7 +15,7 @@ script = ExtResource("1_ukw1k")
 
 [node name="HUDContainer" parent="." instance=ExtResource("3_e81iy")]
 
-[node name="MediumButton2" parent="." instance=ExtResource("3_xcmfd")]
+[node name="Cat" parent="." instance=ExtResource("3_xcmfd")]
 offset_left = 62.0
 offset_top = 80.0
 offset_right = 126.0
@@ -23,7 +23,7 @@ offset_bottom = 112.0
 medium_name = "Cat"
 popup_activities = ["Pet Cat"]
 
-[node name="MediumButton3" parent="." instance=ExtResource("3_xcmfd")]
+[node name="Sketchbook" parent="." instance=ExtResource("3_xcmfd")]
 offset_left = 274.0
 offset_top = 81.0
 offset_right = 338.0
@@ -31,18 +31,18 @@ offset_bottom = 113.0
 medium_name = "Sketchbook"
 popup_activities = ["Doodle In Sketchbook", "Paint With Gouache"]
 
-[node name="MediumButton4" parent="." instance=ExtResource("3_xcmfd")]
-offset_left = 444.0
-offset_top = 147.0
-offset_right = 508.0
-offset_bottom = 179.0
+[node name="Lump of Clay" parent="." instance=ExtResource("3_xcmfd")]
+offset_left = 431.0
+offset_top = 149.0
+offset_right = 495.0
+offset_bottom = 181.0
 medium_name = "Lump of Clay"
 popup_activities = ["Play Around With Clay"]
 
-[node name="MediumButton5" parent="." instance=ExtResource("3_xcmfd")]
-offset_left = 270.0
-offset_top = 288.0
-offset_right = 334.0
-offset_bottom = 320.0
+[node name="Front Door" parent="." instance=ExtResource("3_xcmfd")]
+offset_left = 258.0
+offset_top = 261.0
+offset_right = 322.0
+offset_bottom = 293.0
 medium_name = "Front Door"
 popup_activities = ["Go For A Walk"]
