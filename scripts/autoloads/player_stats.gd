@@ -20,9 +20,15 @@ var max_creativity = 100
 var creativity = 100
 var min_creativity = 0
 
-var current_year = 2012
+var starting_year_floor: int = 1999
+var starting_year_ceiling: int = 2010
+var starting_year: int = 0
+var current_year: int = 0
 
-var max_life_left = 80
+var year_of_birth: int = 0
+var player_age = 0
+
+var max_life_left = 150
 var life_left = 80
 var min_life_left = 0
 
@@ -42,6 +48,7 @@ var max_reputation = 100
 var reputation = 50
 var min_reputation = 0
 
+var available_fandoms = {}
 var player_fandoms = {}
 
 var player_art_specializations = {
@@ -56,6 +63,35 @@ var player_mediums = {}
 var player_skills = {"Sketching": 12, "Furry": 15,}
 
 var player_activities = {}
+
+func _ready() -> void:
+	if first_startup:
+		starting_year = randf_range(starting_year_floor, starting_year_ceiling)
+		year_of_birth = starting_year - 16
+		current_year = starting_year
+		calc_age()
+	print("Birthyear: ", year_of_birth)
+	print("Starting year: ", starting_year)
+
+func year_changed():
+	current_year += 1
+
+func calc_age():
+	player_age = current_year - year_of_birth
+	#print("Player age: ", player_age)
+
+func startup_fandoms():
+	FandomData.find_available_fandoms()
+	available_fandoms = FandomData.available_fandoms.duplicate()
+	var size = available_fandoms.size()
+	var amount_of_startup_fandoms = randi_range(1, size)
+	#print(amount_of_startup_fandoms)
+	while amount_of_startup_fandoms > 0:
+		var random_key = available_fandoms.keys()[randi() % size]
+		player_fandoms[random_key] = random_key
+		amount_of_startup_fandoms -= 1
+	#print("Available fandoms on startup: ", available_fandoms.keys())
+	print("Player fandoms chosen: ", player_fandoms.keys())
 
 func check_for_unlocks():
 	for skill_name in SkillsData.skills_dict:
@@ -79,10 +115,10 @@ func check_for_unlocks():
 			if skill_name in player_skills:
 				player_skills.erase(skill_name)
 			skill_data["unlocked"] = false
-			print("Not all requirements are met for skill to unlock: ", skill_name)
+			#print("Not all requirements are met for skill to unlock: ", skill_name)
 	
 	print("Checked for unlocks!")
-	print(player_skills)
+	print("Player skills: ", player_skills)
 
 func update_fandoms(fandoms, point_amount):
 	for fandom in fandoms:
@@ -95,7 +131,7 @@ func update_fandoms(fandoms, point_amount):
 
 func update_fandom_points(fandom, point_amount):
 	player_fandoms[fandom] += point_amount
-	print(player_fandoms[fandom])
+	print(player_fandoms[fandom]["name"])
 	check_for_unlocks()
 
 func update_specializations(specializations, point_amount):
@@ -137,7 +173,7 @@ func update_skills(skills, point_amount):
 
 func update_skill_points(skill, point_amount):
 	player_skills[skill] += point_amount
-	print(player_skills[skill])
+	print("Player skills: ", player_skills[skill])
 	check_for_unlocks()
 
 func update_activities(activities, point_amount):
