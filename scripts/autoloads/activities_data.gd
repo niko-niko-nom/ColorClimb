@@ -27,6 +27,5 @@ func load_activities():
 			activities_dict[entry.name] = entry
 		else:
 			push_warning("Entry missing 'name' field: %s" % str(entry))
-			
-	return activities_dict
 	
+	return activities_dict

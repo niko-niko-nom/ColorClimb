@@ -27,5 +27,5 @@ func load_skills():
 			skills_dict[entry.name] = entry
 		else:
 			push_warning("Entry missing 'name' field: %s" % str(entry))
-			
+	
 	return skills_dict

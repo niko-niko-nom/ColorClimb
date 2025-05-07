@@ -29,7 +29,7 @@ func load_fandoms():
 			all_fandoms[entry.name] = entry
 		else:
 			push_warning("Entry missing 'name' field: %s" % str(entry))
-			
+	
 	return all_fandoms
 
 func find_available_fandoms():
