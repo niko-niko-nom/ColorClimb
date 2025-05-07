@@ -66,7 +66,7 @@ var player_activities = {}
 
 func _ready() -> void:
 	if first_startup:
-		starting_year = randf_range(starting_year_floor, starting_year_ceiling)
+		starting_year = randi_range(starting_year_floor, starting_year_ceiling)
 		year_of_birth = starting_year - 16
 		current_year = starting_year
 		calc_age()
