@@ -5,7 +5,7 @@
 	"release_year": 1995,
 	"eop_year": 2001,
 	"base_price": 199.99,
-	"type": "Desk Tablet",
+	"type": "desk_tablet",
 },
 {
 	"name": "Wacky Graphs",
@@ -13,7 +13,7 @@
 	"release_year": 2001,
 	"eop_year": 2007,
 	"base_price": 124.95,
-	"type": "Desk Tablet",
+	"type": "desk_tablet",
 },
 {
 	"name": "Wacky Intuition",
@@ -21,7 +21,7 @@
 	"release_year": 1995,
 	"eop_year": 2013,
 	"base_price": 299.90,
-	"type": "Desk Tablet",
+	"type": "desk_tablet",
 },
 {
 	"name": "Wacky Intuition Pro",
@@ -29,7 +29,7 @@
 	"release_year": 2017,
 	"eop_year": 2045,
 	"base_price": 419.90,
-	"type": "Desk Tablet",
+	"type": "desk_tablet",
 },
 {
 	"name": "Wacky Number",
@@ -37,7 +37,7 @@
 	"release_year": 2021,
 	"eop_year": 2074,
 	"base_price": 49.99,
-	"type": "Desk Tablet",
+	"type": "desk_tablet",
 },
 {
 	"name": "Wacky Unique 21",
@@ -45,7 +45,7 @@
 	"release_year": 2011,
 	"eop_year": 2013,
 	"base_price": 2000,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Unique Pro 13",
@@ -53,7 +53,7 @@
 	"release_year": 2016,
 	"eop_year": 2019,
 	"base_price": 999.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Unique Pro 16",
@@ -61,7 +61,7 @@
 	"release_year": 2017,
 	"eop_year": 2020,
 	"base_price": 1499.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Unique Pro 24",
@@ -69,7 +69,7 @@
 	"release_year": 2018,
 	"eop_year": 2021,
 	"base_price": 2499.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Unique Pro 27",
@@ -77,7 +77,7 @@
 	"release_year": 2022,
 	"eop_year": 2026,
 	"base_price": 3499.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Unique Pro 17",
@@ -85,7 +85,7 @@
 	"release_year": 2023,
 	"eop_year": 2032,
 	"base_price": 2500,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Unique Pro 22",
@@ -93,7 +93,7 @@
 	"release_year": 2026,
 	"eop_year": 2040,
 	"base_price": 3000,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Wink 13",
@@ -101,7 +101,7 @@
 	"release_year": 2027,
 	"eop_year": 2045,
 	"base_price": 749.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Wink 17",
@@ -109,7 +109,7 @@
 	"release_year": 2030,
 	"eop_year": 2050,
 	"base_price": 995.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Wink 21",
@@ -117,7 +117,7 @@
 	"release_year": 2032,
 	"eop_year": 2043,
 	"base_price": 3499.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Wink 24",
@@ -125,7 +125,7 @@
 	"release_year": 2038,
 	"eop_year": 2052,
 	"base_price": 1249.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Wink 27",
@@ -133,7 +133,7 @@
 	"release_year": 2039,
 	"eop_year": 2060,
 	"base_price": 1899.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Wink 29",
@@ -141,7 +141,7 @@
 	"release_year": 2045,
 	"eop_year": 2079,
 	"base_price": 2099.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Wink 32",
@@ -149,7 +149,7 @@
 	"release_year": 2052,
 	"eop_year": 2077,
 	"base_price": 3199.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Wink 36",
@@ -157,7 +157,7 @@
 	"release_year": 2061,
 	"eop_year": 2083,
 	"base_price": 2499.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Wink 42",
@@ -165,7 +165,7 @@
 	"release_year": 2076,
 	"eop_year": 2105,
 	"base_price": 3299.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 {
 	"name": "Wacky Wink 52",
@@ -173,6 +173,6 @@
 	"release_year": 2092,
 	"eop_year": 2170,
 	"base_price": 8799.95,
-	"type": "Screen Tablet",
+	"type": "screen_tablet",
 },
 ]
