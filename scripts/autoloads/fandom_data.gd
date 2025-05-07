@@ -39,5 +39,3 @@ func find_available_fandoms():
 		
 		if current_year >= release_year:
 			available_fandoms[fandom] = fandom
-		
-	print(available_fandoms)
