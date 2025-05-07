@@ -6,7 +6,7 @@ func start_new_game():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	
-	PlayerStats.game_seed = Time.get_unix_time_from_system() + rng.randi_range(0, 999999)
+	PlayerStats.game_seed = int(Time.get_unix_time_from_system()) + rng.randi_range(0, 999999)
 	rng.seed = PlayerStats.game_seed
 	
 	print("New game started with seed: ", PlayerStats.game_seed)
