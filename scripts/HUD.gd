@@ -26,15 +26,15 @@ var last_reputation := 1.0
 
 func _process(_delta: float) -> void:
 	if PlayerStats.money != last_money:
-		money_container.text = "Money: " + str(PlayerStats.money)
+		money_container.text = "Money: $" + str(snapped(PlayerStats.money, 0.01))
 		last_money = PlayerStats.money
 	
 	if PlayerStats.current_year != last_year:
-		year_container.text = "Year: " + str(PlayerStats.current_year)
+		year_container.text = "Year: " + str(snapped(PlayerStats.current_year, 1))
 		last_year = PlayerStats.current_year
 	
 	if PlayerStats.follower_count != last_followers:
-		followers_container.text = "Followers: " + str(PlayerStats.follower_count)
+		followers_container.text = "Followers: " + str(snapped(PlayerStats.follower_count, 1))
 		last_followers = PlayerStats.follower_count
 	
 	if PlayerStats.happiness != last_happiness:
@@ -43,7 +43,7 @@ func _process(_delta: float) -> void:
 		last_happiness = PlayerStats.happiness
 	
 	if PlayerStats.creativity != last_creativity:
-		creativity_container.text = "Creativity: " + str(PlayerStats.creativity)
+		creativity_container.text = "Creativity: " + str(snapped(PlayerStats.creativity, 1))
 		creativity_progress_bar.value = PlayerStats.creativity
 		last_creativity = PlayerStats.creativity
 	
@@ -53,12 +53,12 @@ func _process(_delta: float) -> void:
 		last_energy = PlayerStats.energy
 	
 	if PlayerStats.anxiety != last_anxiety:
-		anxiety_container.text = "Anxiety: " + str(PlayerStats.anxiety)
+		anxiety_container.text = "Anxiety: " + str(snapped(PlayerStats.anxiety, 1))
 		anxiety_progress_bar.value = PlayerStats.anxiety
 		last_anxiety = PlayerStats.anxiety
 	
 	if PlayerStats.reputation != last_reputation:
-		reputation_container.text = "Reputation: " + str(PlayerStats.reputation)
+		reputation_container.text = "Reputation: " + str(snapped(PlayerStats.reputation, 1))
 		reputation_progress_bar.value = PlayerStats.reputation
 		last_reputation = PlayerStats.reputation
 
