@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://ce2nwqbmso5vg"]
+[gd_scene load_steps=6 format=3 uid="uid://ce2nwqbmso5vg"]
 
 [ext_resource type="Script" uid="uid://dttjbshg8h27w" path="res://ColorClimb/scripts/game.gd" id="1_ukw1k"]
+[ext_resource type="Script" uid="uid://bq1ffeclcuglm" path="res://ColorClimb/scripts/camera_2d.gd" id="2_kjk4l"]
 [ext_resource type="PackedScene" uid="uid://cvfsnpou7lvvt" path="res://ColorClimb/scenes/HUD.tscn" id="3_e81iy"]
 [ext_resource type="PackedScene" uid="uid://k308vfevq0g2" path="res://ColorClimb/scenes/medium_button.tscn" id="3_xcmfd"]
+[ext_resource type="PackedScene" uid="uid://84hpjogr8ru" path="res://ColorClimb/scenes/skill_tree.tscn" id="4_xcmfd"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -13,13 +15,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ukw1k")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_kjk4l")
+
 [node name="HUDContainer" parent="." instance=ExtResource("3_e81iy")]
 
 [node name="Cat" parent="." instance=ExtResource("3_xcmfd")]
-offset_left = 62.0
-offset_top = 80.0
-offset_right = 126.0
-offset_bottom = 112.0
+offset_left = 152.0
+offset_top = 99.0
+offset_right = 216.0
+offset_bottom = 131.0
 medium_name = "Cat"
 popup_activities = ["Pet Cat"]
 
@@ -32,17 +37,22 @@ medium_name = "Sketchbook"
 popup_activities = ["Doodle In Sketchbook", "Paint With Gouache"]
 
 [node name="Lump of Clay" parent="." instance=ExtResource("3_xcmfd")]
-offset_left = 431.0
-offset_top = 149.0
-offset_right = 495.0
-offset_bottom = 181.0
+offset_left = 314.0
+offset_top = 162.0
+offset_right = 378.0
+offset_bottom = 194.0
 medium_name = "Lump of Clay"
 popup_activities = ["Play Around With Clay"]
 
 [node name="Front Door" parent="." instance=ExtResource("3_xcmfd")]
-offset_left = 258.0
-offset_top = 261.0
-offset_right = 322.0
-offset_bottom = 293.0
+offset_left = 137.0
+offset_top = 166.0
+offset_right = 201.0
+offset_bottom = 198.0
 medium_name = "Front Door"
 popup_activities = ["Go For A Walk"]
+
+[node name="SkillTree" parent="." instance=ExtResource("4_xcmfd")]
+layout_mode = 1
+offset_left = 490.0
+offset_right = 490.0
