@@ -28,8 +28,8 @@ var current_year: int = 0
 var year_of_birth: int = 0
 var player_age = 0
 
-var max_life_left = 150
-var life_left = 80
+var max_life_left = 100
+var life_left = 100
 var min_life_left = 0
 
 var max_anxiety = 100
@@ -50,17 +50,19 @@ var min_reputation = 0
 
 var available_fandoms = {}
 var player_fandoms = {}
+var active_fandoms = []
 
 var player_art_specializations = {
-	"Fanart": 0,
-	"Original Work": 0,
-	"Corporate Art": 0,
-	"Generative AI": 0,
+	"Fanart": 0.0,
+	"Original Work": 0.0,
+	"Corporate Art": 0.0,
+	"Generative AI": 0.0,
 }
 
 var player_mediums = {}
 
-var player_skills = {"Sketching": 12, "Furry": 15,}
+var player_skills = {"Sketching": 12.0, "Furry": 15.0,}
+var active_skills = []
 
 var player_activities = {}
 
@@ -70,15 +72,29 @@ func _ready() -> void:
 		year_of_birth = starting_year - 16
 		current_year = starting_year
 		calc_age()
+		for skill in player_skills.keys():
+			active_skills.append(skill)
+		first_startup = false
 	print("Birthyear: ", year_of_birth)
 	print("Starting year: ", starting_year)
+	print("Active skills: ", active_skills)
 
 func year_changed():
 	current_year += 1
+	calc_age()
 
 func calc_age():
 	player_age = current_year - year_of_birth
 	#print("Player age: ", player_age)
+
+func set_startup_stats():
+	energy = randf_range(70, max_energy)
+	money = randf_range(0, 350)
+	happiness = randf_range(70, max_happiness)
+	creativity = randf_range(70, max_creativity)
+	life_left = randf_range(70, max_life_left)
+	anxiety = randf_range(min_anxiety, 25)
+	burnout = randf_range(min_burnout, 10)
 
 func startup_fandoms():
 	FandomData.find_available_fandoms()
@@ -102,7 +118,11 @@ func check_for_unlocks():
 		for entry in requirements:
 			var req_skill = entry
 			var req_level = requirements[entry]
-			if player_skills.get(req_skill, -1) < req_level:
+			if req_skill in player_skills:
+				if player_skills[req_skill] < req_level:
+					unlocked = false
+					break
+			elif req_skill not in player_skills:
 				unlocked = false
 				break
 		
@@ -114,16 +134,17 @@ func check_for_unlocks():
 		else:
 			if skill_name in player_skills:
 				player_skills.erase(skill_name)
+				active_skills.erase(skill_name)
 			skill_data["unlocked"] = false
-			#print("Not all requirements are met for skill to unlock: ", skill_name)
+			print("Not all requirements are met for skill to unlock: ", skill_name)
 	
 	print("Checked for unlocks!")
 	print("Player skills: ", player_skills)
 
 func update_fandoms(fandoms, point_amount):
 	for fandom in fandoms:
-		if fandom in player_fandoms:
-			update_fandom_points(fandom, point_amount)
+		if fandom in active_fandoms:
+			update_fandom_points(fandom, point_amount / float(fandoms.size()))
 		else:
 			player_fandoms[fandom] = 0
 			print(fandom, " has been added to player fandoms!")
@@ -137,7 +158,7 @@ func update_fandom_points(fandom, point_amount):
 func update_specializations(specializations, point_amount):
 	for specialization in specializations:
 		if specialization in player_art_specializations:
-			update_specialization_points(specialization, point_amount)
+			update_specialization_points(specialization, point_amount / float(specializations.size()))
 		else:
 			player_art_specializations[specialization] = 0
 			print(specialization, " has been added to player specializations!")
@@ -145,13 +166,13 @@ func update_specializations(specializations, point_amount):
 
 func update_specialization_points(specialization, point_amount):
 	player_art_specializations[specialization] += point_amount
-	print(player_art_specializations[specialization])
+	#print(player_art_specializations[specialization])
 	check_for_unlocks()
 
 func update_mediums(mediums, point_amount):
 	for medium in mediums:
 		if medium in player_mediums:
-			update_medium_points(medium, point_amount)
+			update_medium_points(medium, point_amount / float(mediums.size()))
 		else:
 			player_mediums[medium] = 0
 			print(medium, " has been added to player mediums!")
@@ -159,27 +180,29 @@ func update_mediums(mediums, point_amount):
 
 func update_medium_points(medium, point_amount):
 	player_mediums[medium] += point_amount
-	print(player_mediums[medium])
+	#print(player_mediums[medium])
 	check_for_unlocks()
 
 func update_skills(skills, point_amount):
 	for skill in skills:
-		if skill in player_skills:
-			update_skill_points(skill, point_amount)
+		if skill in active_skills:
+			print("skill: ", skill)
+			print("point_amount: ", point_amount)
+			print("divided by: ", float(skills.size()))
+			update_skill_points(skill, point_amount / float(active_skills.size()))
 		else:
-			player_skills[skill] = skill
-			print(skill, " has been added to player skills!")
+			print(skill, " not in active skills!")
 			check_for_unlocks()
 
 func update_skill_points(skill, point_amount):
 	player_skills[skill] += point_amount
-	print("Player skills: ", player_skills[skill])
+	#print("Player skills: ", player_skills[skill])
 	check_for_unlocks()
 
 func update_activities(activities, point_amount):
 	for activity in activities:
 		if activity in player_activities:
-			update_activity_points(activity, point_amount)
+			update_activity_points(activity, point_amount / float(activities.size()))
 		else:
 			player_activities[activity] = 0
 			print(activity, " has been added to player activities!")
@@ -187,5 +210,5 @@ func update_activities(activities, point_amount):
 
 func update_activity_points(activity, point_amount):
 	player_activities[activity] += point_amount
-	print(player_activities[activity])
+	#print(player_activities[activity])
 	check_for_unlocks()

@@ -44,11 +44,13 @@ func _on_pressed() -> void:
 		if is_activated:
 			is_activated = false
 			panel.visible = true
-			#print(is_activated)
+			PlayerStats.active_skills.erase(skill_button_name)
+			#print(PlayerStats.active_skills)
 		else:
 			is_activated = true
 			panel.visible = false
-			#print(is_activated)
+			PlayerStats.active_skills.append(skill_button_name)
+			#print(PlayerStats.active_skills)
 
 func check_if_unlocked(value) -> bool:
 	if value in PlayerStats.player_skills:
